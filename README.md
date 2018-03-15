@@ -1,14 +1,14 @@
 
-# AsyncLoop
+# LoopyLoop
 
 A simple class to instantiate infinite loops of async functions without memory leaks.
 
 ## Usage
 
-const AsyncLoop = require('./');
+const LoopyLoop = require('loopyloop');
 
 ```js
-const loop = new AsyncLoop(async () => {
+const loop = new LoopyLoop(async () => {
   // something async here
 })
   .on('started', () => {})
