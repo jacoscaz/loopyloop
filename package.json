@@ -8,5 +8,11 @@
   "license": "MIT",
   "dependencies": {
     "eventemitter3": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jacoscaz/node-loopyloop"
+  },
+  "homepage": "https://github.com/jacoscaz/node-loopyloop",
+  "bugs": "https://github.com/jacoscaz/node-loopyloop/issues"
 }
