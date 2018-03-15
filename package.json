@@ -1,8 +1,8 @@
 {
-  "name": "infiniteloop",
-  "version": "0.0.1",
+  "name": "loopyloop",
+  "version": "0.0.1-alpha",
   "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
-  "main": "InfiniteLoop.js",
+  "main": "LoopyLoop.js",
   "scripts": {},
   "author": "Jacopo Scazzosi <me@jacoscaz.com>",
   "license": "MIT",

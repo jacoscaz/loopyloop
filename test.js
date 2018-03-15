@@ -4,9 +4,9 @@
 
 'use strict';
 
-const InfiniteLoop = require('./');
+const LoopyLoop = require('./');
 
-const loop = new InfiniteLoop(async () => {
+const loop = new LoopyLoop(async () => {
   const salutation = {
     hello: 'world', 
     timestamp: Date.now(), 

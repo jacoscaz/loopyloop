@@ -3,7 +3,7 @@
 
 const EventEmitter = require('eventemitter3');
 
-class InfiniteLoop extends EventEmitter {
+class LoopyLoop extends EventEmitter {
 
   constructor(task) {
     super();
@@ -55,5 +55,5 @@ class InfiniteLoop extends EventEmitter {
   
 }
 
-module.exports = InfiniteLoop;
+module.exports = LoopyLoop;
 
