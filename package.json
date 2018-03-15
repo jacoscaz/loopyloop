@@ -1,0 +1,12 @@
+{
+  "name": "infiniteloop",
+  "version": "0.0.1",
+  "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
+  "main": "InfiniteLoop.js",
+  "scripts": {},
+  "author": "Jacopo Scazzosi <me@jacoscaz.com>",
+  "license": "MIT",
+  "dependencies": {
+    "eventemitter3": "^3.0.1"
+  }
+}
