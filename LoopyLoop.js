@@ -6,18 +6,23 @@ const EventEmitter = require('eventemitter3');
 class LoopyLoop extends EventEmitter {
 
   constructor(task) {
+
     super();
-    this.task = task;
-    this.running = false;
+
+    Object.defineProperty(this, 'task', {
+      value: task,
+      writable: false
+    });
+
+    this._running = false;
   }
 
-  start() {
-    if (!this.running) {
-      const task = this.task;
+  start(cb) {
+    if (!this._running) {
       const loop = () => {
-        task()
+        this.task()
           .then(() => { 
-            if (this.running) {
+            if (this._running) {
               setImmediate(loop);
             } else {
               setImmediate(() => {
@@ -27,30 +32,36 @@ class LoopyLoop extends EventEmitter {
           })
           .catch((err) => { 
             setImmediate(() => {
-              this.running = false;
+              this._running = false;
               this.emit('error', err);
               this.emit('stopped');
             });
           });
       }
       setImmediate(() => {
-        this.running = true;
+        this._running = true;
         this.emit('started');
         loop();
       });
     }
+    if (typeof(cb) === 'function') {
+      this.once('started', cb);
+    }
     return this;
   }
 
-  stop() {
-    if (this.running) {
-      this.running = false;
+  stop(cb) {
+    if (this._running) {
+      this._running = false;
+    }
+    if (typeof(cb) === 'function') {
+      this.once('stopped', cb);
     }
     return this;
   }
 
   isRunning() {
-    return this.running;  
+    return this._running;
   }
   
 }

@@ -21,5 +21,5 @@ const loop = new LoopyLoop(async () => {
 
 setTimeout(() => {
   loop.stop();
-}, 60 * 1000)
+}, 60 * 1000);
 
