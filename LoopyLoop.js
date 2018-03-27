@@ -20,7 +20,7 @@ class LoopyLoop extends EventEmitter {
   start(cb) {
     if (!this._running) {
       const loop = () => {
-        this.task()
+        this.task.call(this)
           .then(() => { 
             if (this._running) {
               setImmediate(loop);
