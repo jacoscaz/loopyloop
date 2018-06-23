@@ -5,7 +5,7 @@ const EventEmitter = require('eventemitter3');
 
 class LoopyLoop extends EventEmitter {
 
-  constructor(task) {
+  constructor(task, opts) {
 
     super();
 
@@ -14,7 +14,16 @@ class LoopyLoop extends EventEmitter {
       writable: false
     });
 
+    this._chained = 0;
     this._running = false;
+
+    if (!opts || typeof(opts) !== 'object' || opts === null) {
+      opts = {};  
+    }
+
+    this._maxChained = typeof(opts.maxChained) === 'number'
+      ? Math.abs(opts.maxChained)
+      : 10;
   }
 
   start(cb) {
@@ -23,7 +32,18 @@ class LoopyLoop extends EventEmitter {
         this.task.call(this)
           .then(() => { 
             if (this._running) {
-              setImmediate(loop);
+              if (this._maxChained) {
+                if (this._chained < this._maxChained) {
+                  this._chained += 1;
+                  return this.task.call(this)
+                    .then(loop);  
+                } else {
+                  this._chained = 0;
+                  setImmediate(loop);
+                }
+              } else {
+                setImmediate(loop);
+              }
             } else {
               setImmediate(() => {
                 this.emit('stopped');  
@@ -43,9 +63,9 @@ class LoopyLoop extends EventEmitter {
         this.emit('started');
         loop();
       });
-    }
-    if (typeof(cb) === 'function') {
-      this.once('started', cb);
+      if (typeof(cb) === 'function') {
+        this.once('started', cb);
+      }
     }
     return this;
   }
@@ -53,9 +73,9 @@ class LoopyLoop extends EventEmitter {
   stop(cb) {
     if (this._running) {
       this._running = false;
-    }
-    if (typeof(cb) === 'function') {
-      this.once('stopped', cb);
+      if (typeof(cb) === 'function') {
+        this.once('stopped', cb);
+      }
     }
     return this;
   }
