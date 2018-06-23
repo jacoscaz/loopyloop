@@ -1,6 +1,6 @@
 {
   "name": "loopyloop",
-  "version": "0.0.3",
+  "version": "0.0.4-beta",
   "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
   "main": "LoopyLoop.js",
   "scripts": {},
