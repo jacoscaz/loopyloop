@@ -3,7 +3,9 @@
   "version": "1.0.0-beta",
   "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
   "main": "LoopyLoop.js",
-  "scripts": {},
+  "scripts": {
+    "test": "tap test/*.js --coverage"
+  },
   "author": "Jacopo Scazzosi <me@jacoscaz.com>",
   "license": "MIT",
   "dependencies": {
@@ -15,5 +17,8 @@
     "url": "https://github.com/jacoscaz/node-loopyloop"
   },
   "homepage": "https://github.com/jacoscaz/node-loopyloop",
-  "bugs": "https://github.com/jacoscaz/node-loopyloop/issues"
+  "bugs": "https://github.com/jacoscaz/node-loopyloop/issues",
+  "devDependencies": {
+    "tap": "^12.0.1"
+  }
 }
