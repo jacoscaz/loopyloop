@@ -4,6 +4,14 @@
 const EventEmitter = require('eventemitter3');
 const setImmediate = require('set-immediate-shim');
 
+function chain(task, ctx, count) {
+  return task.call(ctx).then(() => {
+    if (count > 0) {
+      return chain(task, ctx, count - 1);
+    }
+  });
+}
+
 class LoopyLoop extends EventEmitter {
 
   constructor(task, opts) {
@@ -30,21 +38,10 @@ class LoopyLoop extends EventEmitter {
   start(cb) {
     if (!this._running) {
       const loop = () => {
-        this.task.call(this)
+        (this._maxChained ? chain(this.task, this, this._maxChained) : this.task.call(this))
           .then(() => { 
             if (this._running) {
-              if (this._maxChained) {
-                if (this._chained < this._maxChained) {
-                  this._chained += 1;
-                  return this.task.call(this)
-                    .then(loop);  
-                } else {
-                  this._chained = 0;
-                  setImmediate(loop);
-                }
-              } else {
-                setImmediate(loop);
-              }
+              setImmediate(loop);
             } else {
               setImmediate(() => {
                 this.emit('stopped');  
