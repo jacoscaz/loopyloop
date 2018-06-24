@@ -2,6 +2,7 @@
 'use strict';
 
 const EventEmitter = require('eventemitter3');
+const setImmediate = require('set-immediate-shim');
 
 class LoopyLoop extends EventEmitter {
 
