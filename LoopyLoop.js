@@ -6,7 +6,7 @@ const setImmediate = require('set-immediate-shim');
 
 function chain(task, loopy, count) {
   return task.call(loopy).then(() => {
-    if (loopy._isRunning && count > 0) {
+    if (loopy.isRunning() && count > 0) {
       return chain(task, loopy, count - 1);
     }
   });
