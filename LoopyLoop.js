@@ -30,6 +30,12 @@ class LoopyLoop extends EventEmitter {
       opts = {};  
     }
 
+    this.on('error', (err) => {
+      if (this.listenerCount('error') === 1) {
+        throw err;
+      }
+    });
+
     this._maxChained = typeof(opts.maxChained) === 'number'
       ? Math.abs(opts.maxChained)
       : 10;
