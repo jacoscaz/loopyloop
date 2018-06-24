@@ -4,10 +4,10 @@
 const EventEmitter = require('eventemitter3');
 const setImmediate = require('set-immediate-shim');
 
-function chain(task, ctx, count) {
-  return task.call(ctx).then(() => {
-    if (count > 0) {
-      return chain(task, ctx, count - 1);
+function chain(task, loopy, count) {
+  return task.call(loopy).then(() => {
+    if (loopy._isRunning && count > 0) {
+      return chain(task, loopy, count - 1);
     }
   });
 }
@@ -58,8 +58,10 @@ class LoopyLoop extends EventEmitter {
       }
       setImmediate(() => {
         this._running = true;
-        this.emit('started');
         loop();
+        setImmediate(() => {
+          this.emit('started');
+        });
       });
       if (typeof(cb) === 'function') {
         this.once('started', cb);
