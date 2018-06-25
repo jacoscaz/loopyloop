@@ -56,7 +56,6 @@ tap.test('sequence - w/o chained calls', (test) => {
     }
   }, {maxChained: 0});
   loop.on('stopped', () => {
-    console.log(target, source);
     test.same(source, target);
     test.end();
   });
