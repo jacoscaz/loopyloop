@@ -6,10 +6,11 @@ const LoopyLoop = require('../');
 let start;
 
 let count = 0;
-let limit = 10 * 1000 * 1000;
+let limit = 1e7;
 
-const task = (async () => {
+const task = (() => {
   count++ >= limit && loop.stop();
+  return Promise.resolve();
 });
 
 const opts = {maxChained: 10};

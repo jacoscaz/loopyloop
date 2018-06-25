@@ -11,7 +11,7 @@ function wait(delay) {
 }
 
 tap.test('constructor', (test) => {
-  const task = (async () => {});
+  const task = (() => Promise.resolve());
   const loop = new LoopyLoop(task);
   test.type(loop, LoopyLoop);
   test.equal(loop.task, task);
@@ -19,7 +19,7 @@ tap.test('constructor', (test) => {
 });
 
 tap.test('constructor with opts', (test) => {
-  const task = (async () => {});
+  const task = (() => Promise.resolve());
   const opts = {maxChained: 42};
   const loop = new LoopyLoop(task, opts);
   test.equal(loop._maxChained, opts.maxChained);
@@ -28,7 +28,10 @@ tap.test('constructor with opts', (test) => {
 
 tap.test('start(), stop(), isRunning()', (test) => {
   let work = false;
-  const task = (async () => { work = true; });
+  const task = (() => { 
+    work = true;  
+    return Promise.resolve()
+  });
   const loop = new LoopyLoop(task);
   loop.on('started', () => {
     test.equal(work, true);
@@ -47,13 +50,14 @@ tap.test('sequence - w/o chained calls', (test) => {
   let seq = 0;
   const target = [];
   const source = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const loop = new LoopyLoop(async () => {
+  const loop = new LoopyLoop(() => {
     const localSeq = seq++;
-    await wait(Math.random() * 500);
-    target.push(localSeq);
-    if (target.length >= 10) {
-      loop.stop(); 
-    }
+    return wait(Math.random() * 500).then(() => {
+      target.push(localSeq);
+      if (target.length >= 10) {
+        loop.stop(); 
+      }
+    });
   }, {maxChained: 0});
   loop.on('stopped', () => {
     test.same(source, target);
@@ -66,13 +70,14 @@ tap.test('sequence - w/ chained calls', (test) => {
   let seq = 0;
   const target = [];
   const source = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const loop = new LoopyLoop(async () => {
+  const loop = new LoopyLoop(() => {
     const localSeq = seq++;
-    await wait(Math.random() * 500);
-    target.push(localSeq);
-    if (target.length >= 10) {
-      loop.stop(); 
-    }
+    return wait(Math.random() * 500).then(() => {
+      target.push(localSeq);
+      if (target.length >= 10) {
+        loop.stop(); 
+      }
+    });
   }, {maxChained: 2});
   loop.on('stopped', () => {
     test.same(source, target);

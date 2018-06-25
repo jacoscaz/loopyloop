@@ -44,7 +44,11 @@ class LoopyLoop extends EventEmitter {
   start(cb) {
     if (!this._running) {
       const loop = () => {
-        (this._maxChained ? chain(this.task, this, this._maxChained) : this.task.call(this))
+        (
+          this._maxChained 
+            ? chain(this.task, this, this._maxChained) 
+            : this.task.call(this)
+        )
           .then(() => { 
             if (this._running) {
               setImmediate(loop);
