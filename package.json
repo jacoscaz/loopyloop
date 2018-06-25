@@ -19,9 +19,10 @@
   "homepage": "https://github.com/jacoscaz/node-loopyloop",
   "bugs": "https://github.com/jacoscaz/node-loopyloop/issues",
   "devDependencies": {
+    "stats-incremental": "^1.2.1",
     "tap": "^12.0.1"
   },
-  "engines" : { 
-    "node" : ">=6.4.0" 
+  "engines": {
+    "node": ">=6.4.0"
   }
 }
