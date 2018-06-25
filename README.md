@@ -21,5 +21,4 @@ const loop = new LoopyLoop(async () => {
 
 ## License
 
-MIT
-
+[MIT](./LICENSE)
