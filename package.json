@@ -20,5 +20,8 @@
   "bugs": "https://github.com/jacoscaz/node-loopyloop/issues",
   "devDependencies": {
     "tap": "^12.0.1"
+  },
+  "engines" : { 
+    "node" : ">=6.4.0" 
   }
 }
