@@ -5,10 +5,19 @@ const EventEmitter = require('eventemitter3');
 const setImmediate = require('set-immediate-shim');
 
 function chain(task, loopy, count) {
-  return task.call(loopy).then(() => {
-    if (loopy.isRunning() && count > 0) {
-      return chain(task, loopy, count - 1);
+  return new Promise((resolve, reject) => {
+    function _chain(_task, _loopy, _count) {
+      _task.call(_loopy)
+        .then(() => {
+          if (_loopy.isRunning() && _count > 0) {
+            _chain(_task, _loopy, _count - 1);
+          } else {
+            resolve();
+          }
+        })
+        .catch((err) => reject);
     }
+    _chain(task, loopy, count);
   });
 }
 
