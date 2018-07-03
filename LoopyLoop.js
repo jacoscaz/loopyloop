@@ -15,7 +15,7 @@ function chain(task, loopy, count) {
             resolve();
           }
         })
-        .catch((err) => reject);
+        .catch(reject);
     }
     _chain(task, loopy, count);
   });
