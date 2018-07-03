@@ -35,6 +35,7 @@ tap.test('start(), stop(), isRunning()', (test) => {
   const loop = new LoopyLoop(task);
   loop.on('started', () => {
     test.equal(work, true);
+    test.equal(loop.isRunning(), true);
     setTimeout(() => {
       loop.stop();
     }, 100);
@@ -81,6 +82,40 @@ tap.test('sequence - w/ chained calls', (test) => {
   }, {maxChained: 2});
   loop.on('stopped', () => {
     test.same(source, target);
+    test.end();
+  });
+  loop.start();
+});
+
+tap.test('catch error w/o chained calls', (test) => {
+  let i = 0;
+  const err = new Error('test error');
+  const task = (() => { 
+    if (++i === 10) {
+      return Promise.reject(err);
+    }
+    return Promise.resolve();
+  });
+  const loop = new LoopyLoop(task, {maxChained: 0});
+  loop.on('error', (_err) => {
+    test.equal(err, _err);
+    test.end();
+  });
+  loop.start();
+});
+
+tap.test('catch error w/ chained calls', (test) => {
+  let i = 0;
+  const err = new Error('test error');
+  const task = (() => { 
+    if (++i === 10) {
+      return Promise.reject(err);
+    }
+    return Promise.resolve();
+  });
+  const loop = new LoopyLoop(task, {maxChained: Infinity});
+  loop.on('error', (_err) => {
+    test.equal(err, _err);
     test.end();
   });
   loop.start();
