@@ -27,11 +27,11 @@ const loop = new LoopyLoop(async () => {
 const loop = new LoopyLoop(task, opts);
 ```
 
-| Argument          | Description                                                                                                   |
-| ----------------- | ------------------------------------------------------------------------------------------------------------- |
-| `task`            | `(function)` An `async` or otherwise `Promise`-returning function to be executed continuously.                |
-| `opts`            | `(object)` Loop options. *optional*                                                                           |
-| `opts.maxChained` | `(number)` Maximum number of chained executions within the same tick of the JavaScript event loop. *optional* |
+| Argument            | Description                                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `task`              | An `async` or otherwise `Promise`-returning `function` to be executed continuously.                                      |
+| `[opts]`            | An optional `object` of loop options.                                                                                    |
+| `[opts.maxChained]` | The optional maximum `number` of chained executions within the same tick of the JavaScript event loop. Defaults to `10`. |
 
 ### Events
 
