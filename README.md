@@ -27,21 +27,21 @@ const loop = new LoopyLoop(async () => {
 const loop = new LoopyLoop(task, opts);
 ```
 
-| Argument          | Type       | Description                                                                             |
-| ----------------- | ---------- | --------------------------------------------------------------------------------------- |
-| `task`            | `function` | An `async` or otherwise `Promise`-returning function to be executed continuously.       |
-| `opts`            | `object`   | Loop options.                                                                           |
-| `opts.maxChained` | `number`   | Maximum number of chained executions within the same tick of the JavaScript event loop. |
+| Argument          | Description                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------------- |
+| `task`            | `(function)` An `async` or otherwise `Promise`-returning function to be executed continuously.                |
+| `opts`            | `(object)` Loop options. *optional*                                                                           |
+| `opts.maxChained` | `(number)` Maximum number of chained executions within the same tick of the JavaScript event loop. *optional* |
 
 ### Events
 
 The `LoopyLoop` class extends `EventEmitter` and its instances emit the following events:
 
-| Event        | Description                                                                                                           |
-| ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| `started()`  | Emitted **after** the loop has started running.                                                                       |
-| `stopped()`  | Emitted **after** the loop has stopped running.                                                                       |
-| `error(err)` | Emitted when the `Promise` returned by `task` rejects. The rejection's error is provided as the first event argument. |
+| Event      | Description                                                                                                                   |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `started`  | Emitted **after** the loop has started running.                                                                               |
+| `stopped`  | Emitted **after** the loop has stopped running.                                                                               |
+| `error`    | Emitted when the `Promise` returned by `task` rejects. The rejection's error is provided as the first argument to this event. |
 
 In addition to emitting the `error` event, a `LoopyLoop` instance will stop running when its `task` rejects.
 
