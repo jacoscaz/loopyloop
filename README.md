@@ -19,6 +19,43 @@ const loop = new LoopyLoop(async () => {
   .start();
 ```
 
+## API
+
+### Constructor
+
+```js
+const loop = new LoopyLoop(task, opts);
+```
+
+| Argument          | Type       | Description                                                                             |
+| ----------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `task`            | `function` | An `async` or otherwise `Promise`-returning function to be executed continuously.       |
+| `opts`            | `object`   | Loop options.                                                                           |
+| `opts.maxChained` | `number`   | Maximum number of chained executions within the same tick of the JavaScript event loop. |
+
+### Events
+
+The `LoopyLoop` class extends `EventEmitter` and its instances emit the following events:
+
+| Event        | Description                                                                                                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `started()`  | Emitted **after** the loop has started running.                                                                       |
+| `stopped()`  | Emitted **after** the loop has stopped running.                                                                       |
+| `error(err)` | Emitted when the `Promise` returned by `task` rejects. The rejection's error is provided as the first event argument. |
+
+In addition to emitting the `error` event, a `LoopyLoop` instance will stop running when its `task` rejects.
+
+### Methods
+
+| Method             | Description                                                                                                           |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `loop.start([cb])` | Starts the loop. The optional `cb` callback is added as a one-time listener to the `started` event.                   |
+| `loop.stop([cb])`  | Stops the loop. The optional `cb` callback is added as a one-time listener to the `stopped` event.                    |
+
+## Compatibility
+
+`LoopyLoop` works with both modern `async` functions from ES6 and functions that explicitely return `Promise`s. Compatible with all Node.js versions `>= 6.4.0`.
+
 ## License
 
 [MIT](./LICENSE)
