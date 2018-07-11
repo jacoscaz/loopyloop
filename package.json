@@ -1,7 +1,8 @@
 {
   "name": "loopyloop",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
+  "keywords": ["loop", "promise", "es6", "async", "infinite", "function", "loopy"],
   "main": "LoopyLoop.js",
   "scripts": {
     "test": "tap test/*.js --coverage"
