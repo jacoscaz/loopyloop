@@ -12,6 +12,10 @@
     "loopy"
   ],
   "main": "LoopyLoop.js",
+  "files": [
+    "LoopyLoop.js",
+    "lib/*"
+  ],
   "scripts": {
     "test": "tap test/*.js --coverage"
   },
