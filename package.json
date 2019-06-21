@@ -1,18 +1,23 @@
 {
   "name": "loopyloop",
-  "version": "1.1.2",
+  "version": "2.0.1",
   "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
-  "keywords": ["loop", "promise", "es6", "async", "infinite", "function", "loopy"],
+  "keywords": [
+    "loop",
+    "promise",
+    "es6",
+    "async",
+    "infinite",
+    "function",
+    "loopy"
+  ],
   "main": "LoopyLoop.js",
   "scripts": {
     "test": "tap test/*.js --coverage"
   },
   "author": "Jacopo Scazzosi <me@jacoscaz.com>",
   "license": "MIT",
-  "dependencies": {
-    "eventemitter3": "^3.0.1",
-    "set-immediate-shim": "^2.0.0"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/jacoscaz/node-loopyloop"
@@ -21,7 +26,7 @@
   "bugs": "https://github.com/jacoscaz/node-loopyloop/issues",
   "devDependencies": {
     "stats-incremental": "^1.2.1",
-    "tap": "^12.0.1"
+    "tap": "^14.2.4"
   },
   "engines": {
     "node": ">=6.4.0"

@@ -54,8 +54,8 @@ In addition to emitting the `error` event, a `LoopyLoop` instance will stop runn
 
 ## Compatibility
 
-`LoopyLoop` works with both modern `async` functions from ES6 and functions that explicitely return `Promise`s. Compatible with all Node.js versions `>= 6.4.0`.
+`LoopyLoop` works with both modern `async` functions and functions that explicitely return `Promise`s. Compatible with all Node.js versions `>= 6.4.0`.
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](./LICENSE.md)

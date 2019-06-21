@@ -1,8 +1,8 @@
 
 'use strict';
 
-const EventEmitter = require('eventemitter3');
-const setImmediate = require('set-immediate-shim');
+const setImmediate = require('./lib/setImmediate');
+const EventEmitter = require('./lib/EventEmitter');
 
 function chain(task, loopy, count) {
   return new Promise((resolve, reject) => {
