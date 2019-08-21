@@ -1,6 +1,6 @@
 {
   "name": "loopyloop",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
   "keywords": [
     "loop",
