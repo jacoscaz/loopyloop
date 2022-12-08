@@ -15,7 +15,7 @@
   "main": "dist/cjs/LoopyLoop.js",
   "module": "dist/esm/LoopyLoop.js",
   "files": [
-    "dist/**/.d.ts",
+    "dist/**/*.d.ts",
     "dist/**/*.js",
     "dist/**/*.js.map"
   ],
