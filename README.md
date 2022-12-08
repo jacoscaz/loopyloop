@@ -1,9 +1,7 @@
 
 # LoopyLoop
 
-[![Build Status](https://travis-ci.org/jacoscaz/node-loopyloop.svg?branch=master)](https://travis-ci.org/jacoscaz/node-loopyloop)
-
-A simple class to instantiate infinite loops of async functions without memory leaks.
+A simple class to instantiate infinite loops of async functions.
 
 ## Usage
 
@@ -38,8 +36,8 @@ const loop = new LoopyLoop(task, opts);
 The `LoopyLoop` class extends `EventEmitter` and its instances emit the following events:
 
 | Event      | Description                                                                                                                   |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `started`  | Emitted **after** the loop has started running.                                                                               |
+| ---------- |-------------------------------------------------------------------------------------------------------------------------------|
+| `started`  | Emitted **after** the loop has started running but before the task runs for the first time.                                   |
 | `stopped`  | Emitted **after** the loop has stopped running.                                                                               |
 | `error`    | Emitted when the `Promise` returned by `task` rejects. The rejection's error is provided as the first argument to this event. |
 
@@ -47,14 +45,14 @@ In addition to emitting the `error` event, a `LoopyLoop` instance will stop runn
 
 ### Methods
 
-| Method             | Description                                                                                                           |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| `loop.start([cb])` | Starts the loop. The optional `cb` callback is added as a one-time listener to the `started` event.                   |
-| `loop.stop([cb])`  | Stops the loop. The optional `cb` callback is added as a one-time listener to the `stopped` event.                    |
+| Method           | Description       |
+|------------------|-------------------|
+| `loop.start()`   | Starts the loop.  |
+| `loop.stop()`    | Stops the loop.   |
 
 ## Compatibility
 
-`LoopyLoop` works with both modern `async` functions and functions that explicitely return `Promise`s. Compatible with all Node.js versions `>= 8.0.0`.
+`LoopyLoop` works with both modern `async` functions and functions that explicitely return `Promise`s. Compatible with all Node.js versions `>= 14.0.0`.
 
 ## License
 

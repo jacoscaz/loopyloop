@@ -2,7 +2,7 @@
 'use strict';
 
 const Stats = require('stats-incremental');
-const LoopyLoop = require('../');
+const { LoopyLoop } = require('../');
 
 function round(num) {
   return Math.round(num * 1e2) / 1e2;
@@ -18,7 +18,7 @@ function hrtimeToMillis(hrtime) {
 
 function hrtimeDiff(after, before) {
   return [
-    after[0] - before[0], 
+    after[0] - before[0],
     after[1] - before[1]
   ];
 }
@@ -45,7 +45,7 @@ function findMaxIndex(values) {
 }
 
 const limit = 1e6;
-const opts = {maxChained: 10};
+const opts = {maxChained: 100000};
 
 let start;
 let count = 0;

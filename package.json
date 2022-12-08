@@ -1,7 +1,7 @@
 {
   "name": "loopyloop",
-  "version": "2.0.2",
-  "description": "A simple class to instantiate infinite loops of async functions without memory leaks",
+  "version": "3.0.0",
+  "description": "A simple class to instantiate infinite loops of async functions",
   "keywords": [
     "loop",
     "promise",
@@ -11,28 +11,39 @@
     "function",
     "loopy"
   ],
-  "main": "LoopyLoop.js",
+  "type": "commonjs",
+  "main": "dist/cjs/LoopyLoop.js",
+  "module": "dist/esm/LoopyLoop.js",
   "files": [
-    "LoopyLoop.js",
-    "lib/*"
+    "dist/**/.d.ts",
+    "dist/**/*.js",
+    "dist/**/*.js.map"
   ],
   "scripts": {
-    "test": "tap test/*.js --coverage"
+    "test": "npm run build:cjs && tap test/*.js --coverage  --lines 95 --branches 95 --functions 95 --statements 95",
+    "clean": "rm -rf dist",
+    "build:esm": "tsc -p tsconfig.esm.json && echo '{\"type\": \"module\"}' > dist/esm/package.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs"
   },
-  "author": "Jacopo Scazzosi <me@jacoscaz.com>",
+  "author": "Jacopo Scazzosi <jacopo@scazzosi.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "eventemitter3": "^5.0.0"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jacoscaz/node-loopyloop"
+    "url": "https://github.com/jacoscaz/loopyloop"
   },
-  "homepage": "https://github.com/jacoscaz/node-loopyloop",
-  "bugs": "https://github.com/jacoscaz/node-loopyloop/issues",
+  "homepage": "https://github.com/jacoscaz/loopyloop",
+  "bugs": "https://github.com/jacoscaz/loopyloop/issues",
   "devDependencies": {
+    "@types/node": "^18.11.11",
     "stats-incremental": "^1.2.1",
-    "tap": "^14.2.4"
+    "tap": "^16.3.2",
+    "typescript": "^4.9.4"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=14.0.0"
   }
 }
