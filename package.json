@@ -20,7 +20,7 @@
     "dist/**/*.js.map"
   ],
   "scripts": {
-    "test": "npm run build:cjs && tap test/*.js --coverage  --lines 95 --branches 95 --functions 95 --statements 95",
+    "test": "npm run build && tap test/*.js --coverage  --lines 95 --branches 95 --functions 95 --statements 95",
     "clean": "rm -rf dist",
     "build:esm": "tsc -p tsconfig.esm.json && echo '{\"type\": \"module\"}' > dist/esm/package.json",
     "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
