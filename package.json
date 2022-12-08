@@ -1,6 +1,6 @@
 {
   "name": "loopyloop",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A simple class to instantiate infinite loops of async functions",
   "keywords": [
     "loop",
