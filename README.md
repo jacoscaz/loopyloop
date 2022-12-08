@@ -6,7 +6,7 @@ A simple class to instantiate infinite loops of async functions.
 ## Usage
 
 ```js
-const LoopyLoop = require('loopyloop');
+const { LoopyLoop } = require('loopyloop');
 
 const loop = new LoopyLoop(async () => {
   // something async here
