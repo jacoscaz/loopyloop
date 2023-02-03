@@ -28,7 +28,9 @@ export class LoopyLoop extends EventEmitter {
     this._running = false;
     this._runTask = typeof opts?.maxChained === 'number' && opts.maxChained > 1
         ? () => new Promise((resolve, reject) => this._chain(task, opts.maxChained as number, resolve, reject))
-        : () => task();
+        : task;
+
+    this._loop = this._loop.bind(this);
 
   }
 
@@ -41,9 +43,7 @@ export class LoopyLoop extends EventEmitter {
       this._stop = false;
       this._running = true;
       this.emit('started');
-      setImmediate(() => {
-        this._loop();
-      });
+      setImmediate(this._loop);
     }
     return this;
   }
@@ -64,7 +64,7 @@ export class LoopyLoop extends EventEmitter {
           this.emit('stopped');
           return;
         }
-        setImmediate(() => this._loop());
+        setImmediate(this._loop);
       })
       .catch((err) => {
         this._running = false;
@@ -75,14 +75,16 @@ export class LoopyLoop extends EventEmitter {
   }
 
   private _chain = (task: Task, count: number, resolve: Resolver, reject: Rejecter) => {
-    if (count < 1 || this._stop) {
-      resolve();
-      return;
-    }
-    task()
-      .then(() => this._chain(task, count - 1, resolve, reject))
-      .catch(reject)
-    ;
+    let left = count;
+    const boundChain = () => {
+      if (left < 1 || this._stop) {
+        resolve();
+        return;
+      }
+      left -= 1;
+      task().then(boundChain).catch(reject);
+    };
+    boundChain();
   };
 
 }
