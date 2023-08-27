@@ -1,5 +1,5 @@
 
-import EventEmitter from 'eventemitter3';
+import { EventEmitter } from 'node:events';
 
 export interface Task {
   (): Promise<any>;
