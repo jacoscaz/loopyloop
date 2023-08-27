@@ -1,5 +1,5 @@
 
-import EventEmitter from 'eventemitter3';
+import { EventEmitter } from 'node:events';
 
 export interface Task {
   (): Promise<any>;
@@ -11,8 +11,6 @@ export interface Opts {
 
 type Resolver = (value?: any) => any;
 type Rejecter = (err: Error) => any;
-
-const setImmediate = (fn: () => any) => setTimeout(fn, 0);
 
 export class LoopyLoop extends EventEmitter {
 
