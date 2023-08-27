@@ -37,7 +37,6 @@
   "bugs": "https://github.com/jacoscaz/loopyloop/issues",
   "devDependencies": {
     "@types/node": "^20.5.6",
-    "stats-incremental": "^1.2.1",
     "typescript": "^5.2.2"
   }
 }
