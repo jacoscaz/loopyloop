@@ -50,9 +50,16 @@ In addition to emitting the `error` event, a `LoopyLoop` instance will stop runn
 | `loop.start()`   | Starts the loop.  |
 | `loop.stop()`    | Stops the loop.   |
 
-## Compatibility
+## Runtimes
 
-`LoopyLoop` works with both modern `async` functions and functions that explicitely return `Promise`s. Compatible with all Node.js versions `>= 14.0.0`.
+LoopyLoop should be compatible with all modern JS runtimes. Loaders, bundlers,
+build systems and [import maps][r2] may be used to resolve the `node:events`
+package to any other package or module offering an alternative implementation 
+of `EventEmitter`, as long as basic API compatibility is maintained. One good
+example of an alternative implementation is [`eventmitter3`][r1].
+
+[r1]: https://www.npmjs.com/package/eventemitter3
+[r2]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
 
 ## License
 

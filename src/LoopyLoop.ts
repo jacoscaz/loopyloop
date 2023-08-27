@@ -12,8 +12,6 @@ export interface Opts {
 type Resolver = (value?: any) => any;
 type Rejecter = (err: Error) => any;
 
-const setImmediate = (fn: () => any) => setTimeout(fn, 0);
-
 export class LoopyLoop extends EventEmitter {
 
   private _stop: boolean;
