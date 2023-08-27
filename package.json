@@ -28,9 +28,7 @@
   },
   "author": "Jacopo Scazzosi <jacopo@scazzosi.com>",
   "license": "MIT",
-  "dependencies": {
-    "eventemitter3": "^5.0.1"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/jacoscaz/loopyloop"
@@ -38,12 +36,8 @@
   "homepage": "https://github.com/jacoscaz/loopyloop",
   "bugs": "https://github.com/jacoscaz/loopyloop/issues",
   "devDependencies": {
-    "@types/node": "^20.5.2",
+    "@types/node": "^20.5.6",
     "stats-incremental": "^1.2.1",
-    "tap": "^16.3.8",
-    "typescript": "^5.1.6"
-  },
-  "engines": {
-    "node": ">=14.0.0"
+    "typescript": "^5.2.2"
   }
 }
