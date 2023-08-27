@@ -1,23 +1,23 @@
 
-'use strict';
+import { test } from 'node:test';
+import assert, { strictEqual, deepStrictEqual } from 'node:assert';
 
-const tap = require('tap');
-const { LoopyLoop } = require('../');
+import { LoopyLoop } from './LoopyLoop.js';
 
-function wait(delay) {
+const wait = (delay: number) => {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
-}
+};
 
-tap.test('constructor', (test) => {
+test('constructor', (t) => {
   const task = (() => Promise.resolve());
   const loop = new LoopyLoop(task);
-  test.type(loop, LoopyLoop);
-  test.end();
+  assert(loop instanceof LoopyLoop);
+  // test.end();
 });
 
-tap.test('start(), stop(), isRunning()', (test) => {
+test('start(), stop(), isRunning()', (t, done) => {
   let work = false;
   const task = (() => {
     work = true;
@@ -25,19 +25,19 @@ tap.test('start(), stop(), isRunning()', (test) => {
   });
   const loop = new LoopyLoop(task);
   loop.on('started', () => {
-    test.equal(loop.isRunning(), true);
-    setTimeout(() => {
+    strictEqual(loop.isRunning(), true);
+    process.nextTick(() => {
       loop.stop();
-    }, 100);
+    });
   });
   loop.on('stopped', () => {
-    test.equal(loop.isRunning(), false);
-    test.end();
+    strictEqual(loop.isRunning(), false);
+    done();
   });
   loop.start();
 });
 
-tap.test('should not start more than once', (test) => {
+test('should not start more than once', (t, done) => {
   const task = () => Promise.resolve();
   let count = 0;
   const loop = new LoopyLoop(task)
@@ -45,15 +45,15 @@ tap.test('should not start more than once', (test) => {
       count += 1
     })
     .on('stopped', () => {
-      test.equal(count, 1);
-      test.end();
+      strictEqual(count, 1);
+      done();
     });
-  setTimeout(() => loop.stop(), 100);
+  setTimeout(() => loop.stop(), 10);
   loop.start();
   loop.start();
 });
 
-tap.test('should not stop more than once', (test) => {
+test('should not stop more than once', (t, done) => {
   const task = () => Promise.resolve();
   let count = 0;
   const loop = new LoopyLoop(task)
@@ -61,21 +61,21 @@ tap.test('should not stop more than once', (test) => {
       count += 1
     });
   setTimeout(() => {
-    test.equal(count, 1);
-    test.end();
-  }, 100);
+    strictEqual(count, 1);
+    done();
+  }, 20);
   setTimeout(() => { loop.stop(); }, 5);
   setTimeout(() => { loop.stop(); }, 10);
   loop.start();
 });
 
-tap.test('sequence - w/o chained calls', (test) => {
+test('sequence - w/o chained calls', (t, done) => {
   let seq = 0;
-  const target = [];
+  const target: number[] = [];
   const source = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const loop = new LoopyLoop(() => {
     const localSeq = seq++;
-    return wait(Math.random() * 500).then(() => {
+    return wait(Math.random() * 50).then(() => {
       target.push(localSeq);
       if (target.length >= 10) {
         loop.stop();
@@ -83,19 +83,19 @@ tap.test('sequence - w/o chained calls', (test) => {
     });
   }, {maxChained: 0});
   loop.on('stopped', () => {
-    test.same(source, target);
-    test.end();
+    deepStrictEqual(source, target);
+    done();
   });
   loop.start();
 });
 
-tap.test('sequence - w/ chained calls', (test) => {
+test('sequence - w/ chained calls', (t, done) => {
   let seq = 0;
-  const target = [];
+  const target: number[] = [];
   const source = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const loop = new LoopyLoop(() => {
     const localSeq = seq++;
-    return wait(Math.random() * 500).then(() => {
+    return wait(Math.random() * 50).then(() => {
       target.push(localSeq);
       if (target.length >= 10) {
         loop.stop();
@@ -103,13 +103,13 @@ tap.test('sequence - w/ chained calls', (test) => {
     });
   }, {maxChained: 2});
   loop.on('stopped', () => {
-    test.same(source, target);
-    test.end();
+    deepStrictEqual(source, target);
+    done();
   });
   loop.start();
 });
 
-tap.test('catch error w/o chained calls', (test) => {
+test('catch error w/o chained calls', (t, done) => {
   let i = 0;
   const err = new Error('test error');
   const task = (() => {
@@ -120,13 +120,13 @@ tap.test('catch error w/o chained calls', (test) => {
   });
   const loop = new LoopyLoop(task, {maxChained: 0});
   loop.on('error', (_err) => {
-    test.equal(err, _err);
-    test.end();
+    strictEqual(err, _err);
+    done();
   });
   loop.start();
 });
 
-tap.test('catch error w/ chained calls', (test) => {
+test('catch error w/ chained calls', (t, done) => {
   let i = 0;
   const err = new Error('test error');
   const task = (() => {
@@ -137,8 +137,8 @@ tap.test('catch error w/ chained calls', (test) => {
   });
   const loop = new LoopyLoop(task, {maxChained: Infinity});
   loop.on('error', (_err) => {
-    test.equal(err, _err);
-    test.end();
+    strictEqual(err, _err);
+    done();
   });
   loop.start();
 });
