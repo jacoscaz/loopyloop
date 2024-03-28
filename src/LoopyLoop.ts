@@ -12,6 +12,9 @@ export interface Opts {
 type Resolver = (value?: any) => any;
 type Rejecter = (err: Error) => any;
 
+const _setImmediate = globalThis.setImmediate 
+  || ((fn: () => any) => setTimeout(fn, 0));
+
 export class LoopyLoop extends EventEmitter {
 
   private _stop: boolean;
@@ -39,7 +42,7 @@ export class LoopyLoop extends EventEmitter {
       this._stop = false;
       this._running = true;
       this.emit('started');
-      setImmediate(() => {
+      _setImmediate(() => {
         this._loop();
       });
     }
@@ -62,7 +65,7 @@ export class LoopyLoop extends EventEmitter {
           this.emit('stopped');
           return;
         }
-        setImmediate(() => this._loop());
+        _setImmediate(() => this._loop());
       })
       .catch((err) => {
         this._running = false;
