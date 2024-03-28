@@ -1,6 +1,6 @@
 {
   "name": "loopyloop",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "A simple class to instantiate infinite loops of async functions",
   "keywords": [
     "loop",
@@ -36,7 +36,7 @@
   "homepage": "https://github.com/jacoscaz/loopyloop",
   "bugs": "https://github.com/jacoscaz/loopyloop/issues",
   "devDependencies": {
-    "@types/node": "^20.5.6",
-    "typescript": "^5.2.2"
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.3"
   }
 }
