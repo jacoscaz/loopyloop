@@ -53,13 +53,15 @@ In addition to emitting the `error` event, a `LoopyLoop` instance will stop runn
 ## Runtimes
 
 LoopyLoop should be compatible with all modern JS runtimes. Loaders, bundlers,
-build systems and [import maps][r2] may be used to resolve the `node:events`
-package to any other package or module offering an alternative implementation 
-of `EventEmitter`, as long as basic API compatibility is maintained. One good
-example of an alternative implementation is [`eventmitter3`][r1].
+build systems and [import maps][r2] may be used to resolve the `events` module,
+which is native to the Node.js runtime, to any other package or module offering
+an alternative implementation of `EventEmitter`, as long as basic API
+compatibility is maintained. Good examples of alternative implementations are
+[`eventmitter3`][r1] and [`events`][r3].
 
 [r1]: https://www.npmjs.com/package/eventemitter3
 [r2]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+[r3]: https://www.npmjs.com/package/events
 
 ## License
 
